@@ -10,3 +10,4 @@
 1. CSS Animations
 2. Live Odds (Incorporates Data Science)
 3. Make it really pretty.
+4. Media Queries for mobile devices.
