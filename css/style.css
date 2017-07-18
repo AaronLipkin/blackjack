@@ -25,3 +25,8 @@ header {
 	background-position: center; 
 	background-repeat: no-repeat;
 }
+
+.back {
+	background-image: url('../images/cards/GAback.png');
+	background-size: cover;
+}

@@ -37,5 +37,5 @@ $(() => {
 	for(card of cards) {
 		$('#table').append($('<div>').addClass("card").css('background-image','url("' + card.image + '")'))
 	}
-
+	$('#table').append($('<div>').addClass('card back'))
 })
