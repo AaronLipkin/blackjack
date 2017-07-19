@@ -4,7 +4,7 @@ $(() => {
 	const faces = ['A',2,3,4,5,6,7,8,9,10,'Jack','Queen','King'];
 	let playerHand = []
 	let dealerHand = []
-
+	$message = $('.win-lose')
 	
 		/**
 	 * Randomize array element order in-place.
@@ -18,6 +18,14 @@ $(() => {
 	        array[j] = temp;
 	    }
 	    return array;
+	}
+
+	function valueHand(hand) {
+		let value = 0;
+		for(element of hand) {
+			value += element.value
+		}
+		return value
 	}
 
 	//Creating a class for cards with their Blackjack value
@@ -73,18 +81,22 @@ $(() => {
 		newCard = cards.pop()
 		playerHand.push(newCard)
 		$('#player-hand').append($('<div>').addClass("card").css('background-image','url("' + newCard.image + '")'))
+		if (valueHand(playerHand) > 21) {
+			$message.text('You lose!')
+		}
 	}
 	
 	const dealerLogic = () => {
-		let dealerValue = 0;
-		for(element of dealerHand) {
-			dealerValue += element.value
-		}
+		$('#hit').off('click',hit)
+		let dealerValue = valueHand(dealerHand)
 		while(dealerValue < 17) {
 			newCard = cards.pop()
 			dealerHand.push(newCard)
 			$('#dealer-hand').append($('<div>').addClass("card").css('background-image','url("' + newCard.image + '")'))
 			dealerValue += newCard.value
+		}
+		if (valueHand(dealerHand) > 21) {
+			$message.text('You win!')
 		}
 	}
 	
