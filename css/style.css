@@ -18,10 +18,11 @@ header {
 	background-color: white;
 	background-size: 90%;
 	display: inline-block;
-	height: 78px;
-	width: 56px;
+	height: 117px;
+	width: 84px;
 	margin: 5px;
-	border-radius: 2px; 
+	border: 1px solid black;
+	border-radius: 4px; 
 	background-position: center; 
 	background-repeat: no-repeat;
 }
@@ -29,4 +30,15 @@ header {
 .back {
 	background-image: url('../images/cards/GAback.png');
 	background-size: cover;
+}
+
+.hand {
+	display: flex;
+	justify-content: center;
+}
+
+.deck {
+	display: block;
+	margin: 0 auto;
+	border: 2px solid black;
 }

@@ -72,9 +72,8 @@ $(() => {
 		for(card of playerHand) {
 			$('#player-hand').append($('<div>').addClass("card").css('background-image','url("' + card.image + '")'))
 		}
-		for(card of dealerHand) {
-			$('#dealer-hand').append($('<div>').addClass("card").css('background-image','url("' + card.image + '")'))
-		}
+			$('#dealer-hand').append($('<div>').addClass("card").css('background-image','url("' + dealerHand[0].image + '")'))
+			$('#dealer-hand').append($('<div>').addClass("card back").css('background-image','url("' + dealerHand[0].back + '")'))
 	}
 
 	const hit = () => {
@@ -83,11 +82,13 @@ $(() => {
 		$('#player-hand').append($('<div>').addClass("card").css('background-image','url("' + newCard.image + '")'))
 		if (valueHand(playerHand) > 21) {
 			$message.text('You lose!')
+			roundOver()
 		}
 	}
 	
 	const dealerLogic = () => {
 		$('#hit').off('click',hit)
+		$('#dealer-hand > .back').css('background-image', 'url("' + dealerHand[1].image+ '")').removeClass('back')
 		let dealerValue = valueHand(dealerHand)
 		while(dealerValue < 17) {
 			newCard = cards.pop()
@@ -97,17 +98,33 @@ $(() => {
 		}
 		if (valueHand(dealerHand) > 21) {
 			$message.text('You win!')
+			roundOver()
 		}
 	}
 	
 	const start = () => {
+		$message.text('')
+		clearTable()
 		shuffleArray(cards)
 		deal(cards);
-		
+		$('#hit').on('click',hit)
+		$('#stand').one('click',dealerLogic)
+		console.log(cards.length)
+	}
+
+	const roundOver = () => {
+		$('#hit').off('click',hit)
+		$('#stand').off('click',dealerLogic)
+	}
+
+	const clearTable = () => {
+		playerHand = []
+		dealerHand = []
+		$('#dealer-hand').empty()
+		$('#player-hand').empty()
 	}
 
 	$('#start').on('click',start)
-	$('#hit').on('click',hit)
-	$('#stand').one('click',dealerLogic)
+	
 
 })
