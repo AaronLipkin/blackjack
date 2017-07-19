@@ -18,10 +18,10 @@ header {
 	background-color: white;
 	background-size: 90%;
 	display: inline-block;
-	height: 390px;
-	width: 280px;
-	margin: 10px;
-	border-radius: 5px; 
+	height: 78px;
+	width: 56px;
+	margin: 5px;
+	border-radius: 2px; 
 	background-position: center; 
 	background-repeat: no-repeat;
 }
