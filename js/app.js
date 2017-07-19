@@ -96,8 +96,16 @@ $(() => {
 			$('#dealer-hand').append($('<div>').addClass("card").css('background-image','url("' + newCard.image + '")'))
 			dealerValue += newCard.value
 		}
-		if (valueHand(dealerHand) > 21) {
+		if (valueHand(dealerHand) > 21 || valueHand(dealerHand) < valueHand(playerHand)) {
 			$message.text('You win!')
+			roundOver()
+		}
+		else if (valueHand(dealerHand) === valueHand(playerHand)) {
+			$message.text('Its a tie!')
+			roundOver()
+		}
+		else {
+			$message.text('You lose!')
 			roundOver()
 		}
 	}
@@ -107,6 +115,7 @@ $(() => {
 		clearTable()
 		shuffleArray(cards)
 		deal(cards);
+		$('.buttons').css('display','flex')
 		$('#hit').on('click',hit)
 		$('#stand').one('click',dealerLogic)
 		console.log(cards.length)

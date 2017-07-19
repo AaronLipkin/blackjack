@@ -8,10 +8,13 @@ header {
 	background-color: blue;
 }
 
+body {
+	background-color: brown;
+}
 #table {
 	top: 15%;
 	width: 100%;
-	background-color: brown;
+	background-color: green;
 }
 
 .card {
@@ -41,4 +44,9 @@ header {
 	display: block;
 	margin: 0 auto;
 	border: 2px solid black;
+}
+
+.buttons {
+	display: none;
+	justify-content: center;
 }
