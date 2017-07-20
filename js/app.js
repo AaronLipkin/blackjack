@@ -5,7 +5,7 @@ $(() => {
 	let playerHand = []
 	let dealerHand = []
 	$message = $('.win-lose')
-	let bank = 500;
+	let bank = 250;
 	let pot = 0;
 	
 		/**
@@ -30,18 +30,35 @@ $(() => {
 		return value
 	}
 
+	const win = () => {
+		$message.text('You win!')
+		bank += 2*pot
+		pot = 0;
+		roundOver()
+	}
+
+	const lose = () => {
+		pot = 0;
+		$message.text('You lose!')
+		roundOver()
+	}
+
+	const tie = () => {
+		$message.text('You tie!')
+		bank += pot
+		pot = 0;
+		roundOver()
+	}
+
 	const natural = () => {
 		if(valueHand(playerHand) === 21 && valueHand(dealerHand) === 21) {
-			$message.text('Its a tie!')
-			roundOver()
+			tie()
 		}
 		else if (valueHand(playerHand) === 21) {
-			$message.text('You win!')
-			roundOver()
+			win()
 		}
 		else if (valueHand(dealerHand) === 21) {
-			$message.text('You lose!')
-			roundOver()
+			lose()
 		}
 	}
 
@@ -96,6 +113,15 @@ $(() => {
 			$('#dealer-hand').append($('<div>').addClass("card back").css('background-image','url("' + dealerHand[0].back + '")'))
 	}
 
+	const takeWager = () => {
+		pot = 0;
+		pot = prompt("What is your wager?", '$$$')
+		while (pot > bank) {
+			pot = prompt("You don't have that much!", '$$$')
+		}
+		bank -= pot;
+	}
+
 	const hit = () => {
 		newCard = cards.pop()
 		playerHand.push(newCard)
@@ -110,8 +136,7 @@ $(() => {
 		}
 		$('#player-score').text(valueHand(playerHand))
 		if (valueHand(playerHand) > 21) {
-			$message.text('You lose!')
-			roundOver()
+			lose()
 		}
 	}
 	
@@ -149,26 +174,29 @@ $(() => {
 		}
 		$('#dealer-score').text(valueHand(dealerHand))
 		if (valueHand(dealerHand) > 21 || valueHand(dealerHand) < valueHand(playerHand)) {
-			$message.text('You win!')
-			roundOver()
+			win()
 		}
 		else if (valueHand(dealerHand) === valueHand(playerHand)) {
-			$message.text('Its a tie!')
-			roundOver()
+			tie()
 		}
 		else {
-			$message.text('You lose!')
-			roundOver()
+			lose()
 		}
 	}
 	
 	const start = () => {
 		if(cards.length < 75) {
 			makeDeck()
+			$('.deck').text('Shuffling')
+			let timeout = setTimeout(function () {$('.deck').text('')}, 1000)
 		}
 		$message.text('')
 		clearTable()
 		shuffleArray(cards)
+		takeWager()
+		$('#pot').text('pot: ' + pot)
+		$('#bank').text('bank: ' + bank)
+		console.log(pot)
 		deal(cards);
 		$('#player-score').text('')
 		$('#dealer-score').text('')
@@ -193,6 +221,8 @@ $(() => {
 		$('#dealer-hand > .back').css('background-image', 'url("' + dealerHand[1].image+ '")').removeClass('back')
 		$('#hit').off('click',hit)
 		$('#stand').off('click',dealerLogic)
+		$('#pot').text('pot: ' + pot)
+		$('#bank').text('bank: ' + bank)
 	}
 
 	const clearTable = () => {
