@@ -139,6 +139,20 @@ $(() => {
 			lose()
 		}
 	}
+
+	const doubleDown = () => {
+		if (valueHand(playerHand) >= 9 && valueHand(playerHand) <= 11) {
+			let dd = prompt('Would you like to double down?', 'true | false')
+			if (dd && pot <= bank) {
+				bank -= pot
+				pot = 2*pot
+				hit()
+				dealerLogic()
+				
+			}
+
+		}
+	}
 	
 	const dealerLogic = () => {
 		$('#hit').off('click',hit)
@@ -194,8 +208,6 @@ $(() => {
 		clearTable()
 		shuffleArray(cards)
 		takeWager()
-		$('#pot').text('pot: ' + pot)
-		$('#bank').text('bank: ' + bank)
 		console.log(pot)
 		deal(cards);
 		$('#player-score').text('')
@@ -215,6 +227,9 @@ $(() => {
 				}
 			}
 		}
+		doubleDown()
+		$('#pot').text('pot: ' + pot)
+		$('#bank').text('bank: ' + bank)
 	}
 
 	const roundOver = () => {
