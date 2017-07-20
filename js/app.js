@@ -1,5 +1,5 @@
 $(() => {
-	const cards = []
+	let cards = []
 	const suits = ['Diamonds','Hearts','Spades','Clubs'];
 	const faces = ['A',2,3,4,5,6,7,8,9,10,'Jack','Queen','King'];
 	let playerHand = []
@@ -70,12 +70,15 @@ $(() => {
 		}
 	}
 	//Creating 6 decks of cards
-	for(i=0;i<6;i++) {
-		for (suit of suits) {
-			for (face of faces) {
-				newCard = new Card(suit,face)
-				newCard.evaluate()
-				cards.push(newCard)
+	const makeDeck = () => {
+		cards = [];
+		for(i=0;i<6;i++) {
+			for (suit of suits) {
+				for (face of faces) {
+					newCard = new Card(suit,face)
+					newCard.evaluate()
+					cards.push(newCard)
+				}
 			}
 		}
 	}
@@ -160,6 +163,9 @@ $(() => {
 	}
 	
 	const start = () => {
+		if(cards.length < 75) {
+			makeDeck()
+		}
 		$message.text('')
 		clearTable()
 		shuffleArray(cards)
@@ -173,6 +179,14 @@ $(() => {
 		$('#stand').one('click',dealerLogic)
 		console.log(cards.length)
 		natural()
+		if (valueHand(playerHand) > 21) {
+			for(card of playerHand) {
+				console.log(card)
+				if (card.isAce) {
+					card.value = 1
+				}
+			}
+		}
 	}
 
 	const roundOver = () => {
@@ -187,7 +201,6 @@ $(() => {
 		$('#dealer-hand').empty()
 		$('#player-hand').empty()
 	}
-
 	$('#start').on('click',start)
 	
 
