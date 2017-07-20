@@ -50,3 +50,11 @@ body {
 	display: none;
 	justify-content: center;
 }
+
+#player-score {
+	color: white;
+}
+
+#dealer-score {
+	color: white;
+}

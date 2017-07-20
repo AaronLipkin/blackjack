@@ -83,6 +83,15 @@ $(() => {
 		playerHand.push(newCard)
 		$('#player-hand').append($('<div>').addClass("card").css('background-image','url("' + newCard.image + '")'))
 		if (valueHand(playerHand) > 21) {
+			for(card of playerHand) {
+				console.log(card)
+				if (card.isAce) {
+					card.value = 1
+				}
+			}
+		}
+		$('#player-score').text(valueHand(playerHand))
+		if (valueHand(playerHand) > 21) {
 			$message.text('You lose!')
 			roundOver()
 		}
@@ -97,6 +106,14 @@ $(() => {
 			dealerHand.push(newCard)
 			$('#dealer-hand').append($('<div>').addClass("card").css('background-image','url("' + newCard.image + '")'))
 			dealerValue += newCard.value
+			$('#dealer-score').text(valueHand(dealerHand))
+		}
+		if (valueHand(dealerHand) > 21) {
+			for(card of dealerHand) {
+				if (card.value === 11) {
+					card.value = 1
+				}
+			}
 		}
 		if (valueHand(dealerHand) > 21 || valueHand(dealerHand) < valueHand(playerHand)) {
 			$message.text('You win!')
@@ -117,6 +134,7 @@ $(() => {
 		clearTable()
 		shuffleArray(cards)
 		deal(cards);
+		$('#player-score').text(valueHand(playerHand))
 		$('.buttons').css('display','flex')
 		$('#hit').on('click',hit)
 		$('#stand').one('click',dealerLogic)
