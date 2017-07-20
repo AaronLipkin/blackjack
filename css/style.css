@@ -58,3 +58,15 @@ body {
 #dealer-score {
 	color: white;
 }
+
+button {
+	height: 50px;
+	width: 100px;
+	font-size: 22px;
+	font-family: 'Merienda', cursive;
+}
+
+#start {
+	display: block;
+	margin: 0 auto;
+}
