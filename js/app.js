@@ -5,6 +5,8 @@ $(() => {
 	let playerHand = []
 	let dealerHand = []
 	$message = $('.win-lose')
+	let bank = 500;
+	let pot = 0;
 	
 		/**
 	 * Randomize array element order in-place.
@@ -44,7 +46,7 @@ $(() => {
 			}
 			else if (this.face === 'Jack' || this.face === 'Queen' || this.face === 'King') {
 				this.value = 10
-				this.image = "images/cards/" + this.face + "_of_" + this.suit.toLowerCase() + '.png'
+				this.image = "images/cards/" + this.face.toLowerCase() + "_of_" + this.suit.toLowerCase() + '.png'
 			}
 			else {
 				this.value = this.face;
@@ -122,6 +124,7 @@ $(() => {
 	}
 
 	const roundOver = () => {
+		$('#dealer-hand > .back').css('background-image', 'url("' + dealerHand[1].image+ '")').removeClass('back')
 		$('#hit').off('click',hit)
 		$('#stand').off('click',dealerLogic)
 	}
