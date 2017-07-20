@@ -143,7 +143,7 @@ $(() => {
 
 	const doubleDown = () => {
 		if (valueHand(playerHand) >= 9 && valueHand(playerHand) <= 11) {
-			$('#double-down').css('display','inline-block')
+			$('#double-down').removeAttr('disabled').css("cursor", "auto")
 			$('#double-down').one('click', () => {
 					bank -= pot
 					pot = 2*pot
@@ -245,8 +245,12 @@ $(() => {
 		dealerHand = []
 		$('#dealer-hand').empty()
 		$('#player-hand').empty()
-		$('#double-down').css('display','none')
+		$('#double-down').attr('disabled','disabled').css("cursor", "not-allowed");
 	}
+
+	makeDeck()
+	$('.deck').text('Shuffling')
+	let timeout = setTimeout(function () {$('.deck').text('')}, 1000)
 	$('#start').on('click',start)
 
 })
