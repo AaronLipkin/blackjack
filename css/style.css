@@ -72,3 +72,7 @@ button {
 	display: block;
 	margin: 0 auto;
 }
+
+#double-down {
+	display: none;
+}

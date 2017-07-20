@@ -55,6 +55,7 @@ $(() => {
 			tie()
 		}
 		else if (valueHand(playerHand) === 21) {
+			bank += pot
 			win()
 		}
 		else if (valueHand(dealerHand) === 21) {
@@ -115,7 +116,7 @@ $(() => {
 
 	const takeWager = () => {
 		pot = 0;
-		pot = prompt("What is your wager?", '$$$')
+		pot = parseInt(prompt("What is your wager?", '$$$'))
 		while (pot > bank) {
 			pot = prompt("You don't have that much!", '$$$')
 		}
@@ -142,15 +143,13 @@ $(() => {
 
 	const doubleDown = () => {
 		if (valueHand(playerHand) >= 9 && valueHand(playerHand) <= 11) {
-			let dd = prompt('Would you like to double down?', 'true | false')
-			if (dd && pot <= bank) {
-				bank -= pot
-				pot = 2*pot
-				hit()
-				dealerLogic()
-				
-			}
-
+			$('#double-down').css('display','inline-block')
+			$('#double-down').one('click', () => {
+					bank -= pot
+					pot = 2*pot
+					hit()
+					dealerLogic()
+			})
 		}
 	}
 	
@@ -172,6 +171,7 @@ $(() => {
 				}
 			}
 		}
+		dealerValue = valueHand(dealerHand)
 		while(dealerValue < 17) {
 			newCard = cards.pop()
 			dealerHand.push(newCard)
@@ -245,8 +245,8 @@ $(() => {
 		dealerHand = []
 		$('#dealer-hand').empty()
 		$('#player-hand').empty()
+		$('#double-down').css('display','none')
 	}
 	$('#start').on('click',start)
-	
 
 })
