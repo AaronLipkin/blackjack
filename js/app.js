@@ -30,6 +30,21 @@ $(() => {
 		return value
 	}
 
+	const natural = () => {
+		if(valueHand(playerHand) === 21 && valueHand(dealerHand) === 21) {
+			$message.text('Its a tie!')
+			roundOver()
+		}
+		else if (valueHand(playerHand) === 21) {
+			$message.text('You win!')
+			roundOver()
+		}
+		else if (valueHand(dealerHand) === 21) {
+			$message.text('You lose!')
+			roundOver()
+		}
+	}
+
 	//Creating a class for cards with their Blackjack value
 	class Card {
 		constructor(suit,face) {
@@ -67,8 +82,8 @@ $(() => {
 
 	const deal = (deck) => {
 		playerHand.push(deck.pop())
-		playerHand.push(deck.pop())
 		dealerHand.push(deck.pop())
+		playerHand.push(deck.pop())
 		dealerHand.push(deck.pop())
 
 		for(card of playerHand) {
@@ -107,13 +122,20 @@ $(() => {
 			$('#dealer-hand').append($('<div>').addClass("card").css('background-image','url("' + newCard.image + '")'))
 			dealerValue += newCard.value
 			$('#dealer-score').text(valueHand(dealerHand))
-			if (valueHand(dealerHand) > 21) {
+		}
+		if (valueHand(dealerHand) > 21) {
 			for(card of dealerHand) {
 				if (card.value === 11) {
 					card.value = 1
 				}
 			}
 		}
+		while(dealerValue < 17) {
+			newCard = cards.pop()
+			dealerHand.push(newCard)
+			$('#dealer-hand').append($('<div>').addClass("card").css('background-image','url("' + newCard.image + '")'))
+			dealerValue += newCard.value
+			$('#dealer-score').text(valueHand(dealerHand))
 		}
 		if (valueHand(dealerHand) > 21) {
 			for(card of dealerHand) {
@@ -146,9 +168,11 @@ $(() => {
 		$('#dealer-score').text('')
 		$('#player-score').text(valueHand(playerHand))
 		$('.buttons').css('display','flex')
+		$('#hit').off('click',hit)
 		$('#hit').on('click',hit)
 		$('#stand').one('click',dealerLogic)
 		console.log(cards.length)
+		natural()
 	}
 
 	const roundOver = () => {
