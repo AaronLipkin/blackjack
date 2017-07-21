@@ -50,7 +50,8 @@ body {
 	color: white;
 	position: fixed;
 	top: 132px;
-	left: 30%;
+	left: 25%;
+	transform: translateX(-50%);
 }
 
 .buttons {
@@ -72,10 +73,24 @@ body {
 
 #player-score {
 	color: white;
+	font-family: 'Merienda', cursive;
+	font-size: 26px;
+	display: block;
+	position: fixed;
+	top: 317.5px;
+	left: 25%;
+	transform: translate(-50%,-50%);
 }
 
 #dealer-score {
 	color: white;
+	font-family: 'Merienda', cursive;
+	font-size: 26px;
+	display: block;
+	position: fixed;
+	top: 63.5px;
+	left: 25%;
+	transform: translate(-50%,-50%);
 }
 
 button {
