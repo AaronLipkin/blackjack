@@ -3,6 +3,7 @@ $(() => {
 	const suits = ['Diamonds','Hearts','Spades','Clubs'];
 	const faces = ['A',2,3,4,5,6,7,8,9,10,'Jack','Queen','King'];
 	let playerHand = []
+	let splitHands = []
 	let dealerHand = []
 	$message = $('.win-lose')
 	let bank = 250;
@@ -33,12 +34,10 @@ $(() => {
 	const win = () => {
 		$message.text('You win!')
 		bank += 2*pot
-		pot = 0;
 		roundOver()
 	}
 
 	const lose = () => {
-		pot = 0;
 		$message.text('You lose!')
 		roundOver()
 	}
@@ -46,7 +45,6 @@ $(() => {
 	const tie = () => {
 		$message.text('You tie!')
 		bank += pot
-		pot = 0;
 		roundOver()
 	}
 
@@ -115,8 +113,7 @@ $(() => {
 	}
 
 	const takeWager = () => {
-		pot = 0;
-		pot = parseInt(prompt("What is your wager?", '$$$'))
+		pot = parseInt(prompt("What is your wager?", pot))
 		while (pot > bank) {
 			pot = prompt("You don't have that much!", '$$$')
 		}
@@ -135,8 +132,10 @@ $(() => {
 				}
 			}
 		}
+
 		$('#player-score').text(valueHand(playerHand))
 		if (valueHand(playerHand) > 21) {
+			$('#player-score').text('Bust!')
 			lose()
 		}
 	}
@@ -149,6 +148,21 @@ $(() => {
 					pot = 2*pot
 					hit()
 					dealerLogic()
+			})
+		}
+	}
+
+	const split = () => {
+		if (playerHand[0].face === playerHand[1].face) {
+			$('#split').removeAttr('disabled').css("cursor", "auto")
+			$('#split').one('click', () => {
+				$('#split').attr('disabled','disabled').css("cursor", "not-allowed");
+				splitHands.push([playerHand.pop()])
+				console.log(splitHands)
+				$('#player-hand').empty()
+				for(card of playerHand) {
+					$('#player-hand').append($('<div>').addClass("card").css('background-image','url("' + card.image + '")'))
+				}
 			})
 		}
 	}
@@ -199,6 +213,10 @@ $(() => {
 	}
 	
 	const start = () => {
+		
+	}
+
+	const newHand = () => {
 		if(cards.length < 75) {
 			makeDeck()
 			$('.deck').text('Shuffling')
@@ -207,6 +225,7 @@ $(() => {
 		$message.text('')
 		clearTable()
 		shuffleArray(cards)
+		$('#bank').text('bank: ' + bank)
 		takeWager()
 		console.log(pot)
 		deal(cards);
@@ -227,6 +246,7 @@ $(() => {
 				}
 			}
 		}
+		split()
 		doubleDown()
 		$('#pot').text('pot: ' + pot)
 		$('#bank').text('bank: ' + bank)
@@ -246,11 +266,13 @@ $(() => {
 		$('#dealer-hand').empty()
 		$('#player-hand').empty()
 		$('#double-down').attr('disabled','disabled').css("cursor", "not-allowed");
+		$('#split').attr('disabled','disabled').css("cursor", "not-allowed");
 	}
 
 	makeDeck()
+	start()
 	$('.deck').text('Shuffling')
 	let timeout = setTimeout(function () {$('.deck').text('')}, 1000)
-	$('#start').on('click',start)
+	$('#start').on('click',newHand)
 
 })

@@ -12,19 +12,20 @@ body {
 	background-color: brown;
 }
 #table {
-	height: 441px;
+	height: 70vh;
 	width: 100%;
 	background-color: green;
 	border-bottom-left-radius: 40%;
 	border-bottom-right-radius: 40%;
+	transform: translateY(15vh);
 }
 
 .card {
 	background-color: white;
 	background-size: 90%;
 	display: inline-block;
-	height: 117px;
-	width: 84px;
+	height: 146.25px;
+	width: 105px;
 	margin: 5px;
 	border: 1px solid black;
 	border-radius: 4px; 
@@ -49,7 +50,7 @@ body {
 	text-align: center;
 	color: white;
 	position: fixed;
-	top: 132px;
+	top: 21vh;
 	left: 25%;
 	transform: translateX(-50%);
 }
@@ -58,7 +59,7 @@ body {
 	display: none;
 	justify-content: center;
 	position: fixed;
-	top: 381px;
+	bottom: 2%;
 	left: 50%;
 	transform: translateX(-50%);
 	background-color: white;
@@ -66,9 +67,9 @@ body {
 
 #player-hand {
 	position: fixed;
-	top: 254px;
+	bottom: 26%;
 	left: 50%;
-	transform: translateX(-50%);
+	transform: translate(-50%,50%);
 }
 
 #player-score {
@@ -77,9 +78,9 @@ body {
 	font-size: 26px;
 	display: block;
 	position: fixed;
-	top: 317.5px;
+	bottom: 33%;
 	left: 25%;
-	transform: translate(-50%,-50%);
+	transform: translate(-50%,50%);
 }
 
 #dealer-score {
@@ -100,10 +101,6 @@ button {
 	font-family: 'Merienda', cursive;
 }
 
-#start {
-	display: block;
-	margin: 0 auto;
-}
 
 #double-down {
 	cursor: not-allowed;
@@ -116,10 +113,40 @@ button {
 .win-lose {
 	display: block;
 	position: fixed;
-	top: 190.5px;
+	top: 45%;
 	left: 50%;
 	transform: translate(-50%,-50%);
 	font-family: 'Merienda', cursive;
 	font-size: 50px;
 	color: white;
+}
+
+#bank {
+	display: block;
+	position: fixed;
+	top: 7.5%;
+	left: 15%;
+	transform: translateY(-50%);
+	color: white;
+	font-family:'Merienda', cursive;
+	font-size: 30px;
+}
+
+#pot {
+	display: block;
+	position: fixed;
+	top: 7.5%;
+	right: 15%;
+	transform: translateY(-50%);
+	color: white;
+	font-family:'Merienda', cursive;
+	font-size: 30px;
+}
+
+#start {
+	display: block;
+	position: fixed;
+	top: 7.5%;
+	left:50%;
+	transform: translate(-50%,-50%)
 }
