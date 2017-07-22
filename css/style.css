@@ -78,7 +78,7 @@ body {
 	font-size: 26px;
 	display: block;
 	position: fixed;
-	bottom: 33%;
+	bottom: 26%;
 	left: 25%;
 	transform: translate(-50%,50%);
 }
@@ -149,4 +149,44 @@ button {
 	top: 7.5%;
 	left:50%;
 	transform: translate(-50%,-50%)
+}
+
+.chip {
+	height: 50px;
+	width: 50px;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 50%;
+	border:0px;
+	background-size: cover;
+}
+
+#chips {
+	position: fixed;
+	right: 50%;
+	bottom:2.5%;
+	transform: translateX(50%);
+	height: 10%;
+	width: 40%;
+	border: 4px dashed black;
+	background-color: rgba(0,0,0,.5);
+	display: flex;
+	justify-content:space-around;
+}
+
+.five { 
+	background-image: url("../images/5chip.png");
+}
+.ten { 
+	background-image: url("../images/10chip.png");
+}
+.tfive { 
+	background-image: url("../images/25chip.png");
+}
+.fifty { 
+	background-image: url("../images/50chip.png");
+}
+.hundred { 
+	background-image: url("../images/100chip.png");
 }

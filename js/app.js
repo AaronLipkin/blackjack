@@ -3,7 +3,6 @@ $(() => {
 	const suits = ['Diamonds','Hearts','Spades','Clubs'];
 	const faces = ['A',2,3,4,5,6,7,8,9,10,'Jack','Queen','King'];
 	let playerHand = []
-	let splitHands = []
 	let dealerHand = []
 	$message = $('.win-lose')
 	let bank = 250;
@@ -135,7 +134,7 @@ $(() => {
 
 		$('#player-score').text(valueHand(playerHand))
 		if (valueHand(playerHand) > 21) {
-			$('#player-score').text('Bust!')
+			$('#player-score').text('Bust! (' + valueHand(playerHand) + ')')
 			lose()
 		}
 	}
@@ -152,20 +151,6 @@ $(() => {
 		}
 	}
 
-	const split = () => {
-		if (playerHand[0].face === playerHand[1].face) {
-			$('#split').removeAttr('disabled').css("cursor", "auto")
-			$('#split').one('click', () => {
-				$('#split').attr('disabled','disabled').css("cursor", "not-allowed");
-				splitHands.push([playerHand.pop()])
-				console.log(splitHands)
-				$('#player-hand').empty()
-				for(card of playerHand) {
-					$('#player-hand').append($('<div>').addClass("card").css('background-image','url("' + card.image + '")'))
-				}
-			})
-		}
-	}
 	
 	const dealerLogic = () => {
 		$('#hit').off('click',hit)
@@ -213,7 +198,8 @@ $(() => {
 	}
 	
 	const start = () => {
-		
+		$('#bank').text('bank: ' + bank)
+		clearTable()
 	}
 
 	const newHand = () => {
@@ -246,7 +232,6 @@ $(() => {
 				}
 			}
 		}
-		split()
 		doubleDown()
 		$('#pot').text('pot: ' + pot)
 		$('#bank').text('bank: ' + bank)
@@ -266,7 +251,6 @@ $(() => {
 		$('#dealer-hand').empty()
 		$('#player-hand').empty()
 		$('#double-down').attr('disabled','disabled').css("cursor", "not-allowed");
-		$('#split').attr('disabled','disabled').css("cursor", "not-allowed");
 	}
 
 	makeDeck()
