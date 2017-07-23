@@ -175,6 +175,18 @@ button {
 	justify-content:space-around;
 }
 
+#chippot {
+	width: 20%;
+	height: 15%;
+	position: fixed;
+	top: 45%;
+	right: 15%;
+	border: 3px dashed black;
+	transform: translateY(-50%);
+	display: flex;
+	justify-content: space-around;
+}
+
 .five { 
 	background-image: url("../images/5chip.png");
 }

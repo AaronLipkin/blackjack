@@ -7,6 +7,7 @@ $(() => {
 	$message = $('.win-lose')
 	let bank = 250;
 	let pot = 0;
+	let playing = false;
 	
 		/**
 	 * Randomize array element order in-place.
@@ -111,13 +112,33 @@ $(() => {
 			$('#dealer-hand').append($('<div>').addClass("card back").css('background-image','url("' + dealerHand[0].back + '")'))
 	}
 
-	const takeWager = () => {
-		pot = parseInt(prompt("What is your wager?", pot))
-		while (pot > bank) {
-			pot = prompt("You don't have that much!", '$$$')
+	$('.chip').on('click', (e) => {
+		if(playing == false) {
+			let wager = parseInt($(e.currentTarget).attr('value'))
+			if(bank >= wager) {
+				pot += wager
+				bank -= wager
+				console.log(pot)
+				$('#pot').text('pot: ' + pot)
+				$('#bank').text('bank: ' + bank)
+				let newChip = $(e.currentTarget).clone().addClass('inpot')
+				newChip.off('click')
+				newChip.on('click', (e) => {
+					console.log('working')
+					if(playing == false) {
+						pot -= parseInt($(e.currentTarget).attr('value'))
+						bank += parseInt($(e.currentTarget).attr('value'))
+						$(e.currentTarget).remove()
+						$('#pot').text('pot: ' + pot)
+						$('#bank').text('bank: ' + bank)
+					}
+				})
+				$('#chippot').append(newChip)
+			}
 		}
-		bank -= pot;
-	}
+	})
+
+
 
 	const hit = () => {
 		newCard = cards.pop()
@@ -147,6 +168,7 @@ $(() => {
 					pot = 2*pot
 					hit()
 					dealerLogic()
+					pot = pot/2
 			})
 		}
 	}
@@ -203,38 +225,41 @@ $(() => {
 	}
 
 	const newHand = () => {
-		if(cards.length < 75) {
-			makeDeck()
-			$('.deck').text('Shuffling')
-			let timeout = setTimeout(function () {$('.deck').text('')}, 1000)
-		}
-		$message.text('')
-		clearTable()
-		shuffleArray(cards)
-		$('#bank').text('bank: ' + bank)
-		takeWager()
-		console.log(pot)
-		deal(cards);
-		$('#player-score').text('')
-		$('#dealer-score').text('')
-		$('#player-score').text(valueHand(playerHand))
-		$('.buttons').css('display','flex')
-		$('#hit').off('click',hit)
-		$('#hit').on('click',hit)
-		$('#stand').one('click',dealerLogic)
-		console.log(cards.length)
-		natural()
-		if (valueHand(playerHand) > 21) {
-			for(card of playerHand) {
-				console.log(card)
-				if (card.isAce) {
-					card.value = 1
+		if(pot >0) {
+			if(cards.length < 75) {
+				makeDeck()
+				$('.deck').text('Shuffling')
+				let timeout = setTimeout(function () {$('.deck').text('')}, 1000)
+			}
+			$message.text('')
+			playing = true;
+			bank -=pot
+			clearTable()
+			shuffleArray(cards)
+			$('#bank').text('bank: ' + bank)
+			console.log(pot)
+			deal(cards);
+			$('#player-score').text('')
+			$('#dealer-score').text('')
+			$('#player-score').text(valueHand(playerHand))
+			$('.buttons').css('display','flex')
+			$('#hit').off('click',hit)
+			$('#hit').on('click',hit)
+			$('#stand').one('click',dealerLogic)
+			console.log(cards.length)
+			natural()
+			if (valueHand(playerHand) > 21) {
+				for(card of playerHand) {
+					console.log(card)
+					if (card.isAce) {
+						card.value = 1
+					}
 				}
 			}
+			doubleDown()
+			$('#pot').text('pot: ' + pot)
+			$('#bank').text('bank: ' + bank)
 		}
-		doubleDown()
-		$('#pot').text('pot: ' + pot)
-		$('#bank').text('bank: ' + bank)
 	}
 
 	const roundOver = () => {
@@ -243,6 +268,7 @@ $(() => {
 		$('#stand').off('click',dealerLogic)
 		$('#pot').text('pot: ' + pot)
 		$('#bank').text('bank: ' + bank)
+		playing = false;
 	}
 
 	const clearTable = () => {
@@ -255,6 +281,7 @@ $(() => {
 
 	makeDeck()
 	start()
+	
 	$('.deck').text('Shuffling')
 	let timeout = setTimeout(function () {$('.deck').text('')}, 1000)
 	$('#start').on('click',newHand)
