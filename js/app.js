@@ -282,6 +282,11 @@ $(() => {
 	makeDeck()
 	start()
 	
+
+	$('#play').on('click', () => {
+		$('#menu').css('display','none')
+		$('#game').css('display','block')
+	})
 	$('.deck').text('Shuffling')
 	let timeout = setTimeout(function () {$('.deck').text('')}, 1000)
 	$('#start').on('click',newHand)

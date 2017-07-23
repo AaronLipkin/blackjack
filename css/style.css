@@ -11,6 +11,35 @@ header {
 body {
 	background-color: brown;
 }
+
+
+#game {
+	display:none;
+}
+
+#menu {
+	display: block;
+}
+
+.start-buttons {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	display: flex;
+	transform: translateX(-50%);
+	justify-content: center;
+}
+
+.title {
+	position: fixed;
+	top: 10%;
+	left: 50%;
+	display: block;
+	transform: translateX(-50%);
+	text-align: center;
+	width: 70%;
+}
+
 #table {
 	height: 70vh;
 	width: 100%;
