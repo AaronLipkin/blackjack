@@ -12,6 +12,10 @@ body {
 	background-color: brown;
 }
 
+#end {
+	display: none;
+}
+
 
 #game {
 	display:none;

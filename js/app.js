@@ -233,7 +233,6 @@ $(() => {
 			}
 			$message.text('')
 			playing = true;
-			bank -=pot
 			clearTable()
 			shuffleArray(cards)
 			$('#bank').text('bank: ' + bank)
@@ -263,12 +262,18 @@ $(() => {
 	}
 
 	const roundOver = () => {
+		bank -= pot;
 		$('#dealer-hand > .back').css('background-image', 'url("' + dealerHand[1].image+ '")').removeClass('back')
 		$('#hit').off('click',hit)
 		$('#stand').off('click',dealerLogic)
 		$('#pot').text('pot: ' + pot)
 		$('#bank').text('bank: ' + bank)
+
 		playing = false;
+		if(bank + pot === 0) {
+			$('#game').css('display','none')
+			$('#end').css('display','block')
+		}
 	}
 
 	const clearTable = () => {
