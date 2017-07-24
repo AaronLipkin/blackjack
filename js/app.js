@@ -301,5 +301,19 @@ $(() => {
 	$('.x-out').on('click',()=> {
 		$('#rules-box').css('display','none')
 	})
+	
+	$('#vol').on('click',()=> {
+		if ($('#vol').hasClass('playing')) {
+			$('#vol').attr('src','images/mute.png')
+			$('#vol').removeClass('playing')
+			$('#shutup').prop('muted',true)
+		}
+		else {
+			$('#vol').attr('src','images/vol.png')
+			$('#vol').addClass('playing')
+			$('#shutup').prop('muted',false)
+		}
+	})
+
 
 })

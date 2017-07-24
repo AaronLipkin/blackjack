@@ -354,3 +354,16 @@ button {
 	75% {transform: scaleY(.5);
 		 transform: translateY(-25%);}
 }
+
+#vol {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	opacity: .5;
+	width: 3%;
+	transition-duration: .4s;
+}
+
+#vol:hover {
+	opacity: .8;
+}
