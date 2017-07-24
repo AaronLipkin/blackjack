@@ -12,10 +12,110 @@ body {
 	background-color: brown;
 }
 
-#end {
-	display: none;
+h2 {
+	font-size: 40px;
+	margin: 30px;
 }
 
+h3 {
+	font-size: 25px;
+	margin: 20px
+}
+
+h4 {
+	font-size: 20px;
+	margin: 20px 0px 10px 0px;
+}
+
+p {
+	font-family: helvetica;
+	font-size: 18px;
+	margin: 10px 30px;
+	text-align: justify-all;
+}
+
+#end {
+	display: none;
+	position: fixed;
+	top:0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+@keyframes left-in {
+	from {left: -50%;}
+	to 	 {left: 0%;}
+}
+
+@keyframes right-in {
+	from {left: 100%;}
+	to 	 {left: 50%;}
+}
+
+
+#left-curtain {
+	display: block;
+	background-image: url("http://1.bp.blogspot.com/-133TDPjC4Xk/TgzLaeSQ-7I/AAAAAAAAAQ8/Gf9vMPSXJY4/s1600/image.jpg");
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 50%;
+	height: 100%;
+	animation: left-in;
+	animation-duration: 1s;
+}
+
+#right-curtain {
+	display: block;
+	background-image: url("http://1.bp.blogspot.com/-133TDPjC4Xk/TgzLaeSQ-7I/AAAAAAAAAQ8/Gf9vMPSXJY4/s1600/image.jpg");
+	position: fixed;
+	top: 0px;
+	left: 50%;
+	width: 50%;
+	height: 100%;
+	animation: right-in;
+	animation-duration: 1s;
+}
+
+#rules-box {
+	display: none;
+	position: fixed;
+	top:0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,.5);
+}
+
+#rules-sub {
+	text-align: center;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 60%;
+	height: 60%;
+	background-color: rgb(255,255,255);
+	border-radius: 12px;
+	border:5px solid black;
+	font-family: 'Merienda', cursive;
+	overflow: auto;
+}
+
+.x-out {
+	display: block;
+	width: 50px;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	opacity: .4;
+	transition-duration: .4s;
+}
+
+.x-out:hover {
+	opacity: 1;
+}
 
 #game {
 	display:none;
@@ -37,9 +137,8 @@ body {
 .title {
 	position: fixed;
 	top: 10%;
-	left: 50%;
+	left: 15%;
 	display: block;
-	transform: translateX(-50%);
 	text-align: center;
 	width: 70%;
 }
@@ -234,4 +333,24 @@ button {
 }
 .hundred { 
 	background-image: url("../images/100chip.png");
+}
+
+#bankrupt {
+	display: none;
+	top: 20%;
+	animation:drop-in;
+	animation-duration: 1s;
+}
+
+.play-again {
+	display: none;
+	width: 15%;
+	height: 10%;
+}
+
+@keyframes drop-in {
+	0% {transform: translateY(-4000px);}
+	25% {transform: translateY(0px);}
+	75% {transform: scaleY(.5);
+		 transform: translateY(-25%);}
 }

@@ -268,11 +268,11 @@ $(() => {
 		$('#stand').off('click',dealerLogic)
 		$('#pot').text('pot: ' + pot)
 		$('#bank').text('bank: ' + bank)
-
 		playing = false;
 		if(bank + pot === 0) {
-			$('#game').css('display','none')
 			$('#end').css('display','block')
+			setTimeout(function () {$('#bankrupt').css('display','block')}, 1000)
+			setTimeout(function () {$('.play-again').css('display','block')}, 2000)
 		}
 	}
 
@@ -295,5 +295,11 @@ $(() => {
 	$('.deck').text('Shuffling')
 	let timeout = setTimeout(function () {$('.deck').text('')}, 1000)
 	$('#start').on('click',newHand)
+	$('#rules').on('click',()=> {
+		$('#rules-box').css('display','block')
+	})
+	$('.x-out').on('click',()=> {
+		$('#rules-box').css('display','none')
+	})
 
 })
