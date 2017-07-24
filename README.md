@@ -5,11 +5,7 @@
 2. ~~Must be able to play multiple hands while maintaining bank.~~
 3. ~~Must be able to completely reset game.~~
 4. ~~Dealer must follow real dealer logic.~~
-5. Splitting hands
 
 ### Stretch Goals
-1. CSS Animations
-2. Live Odds (Incorporates Data Science)
-3. Make it really pretty.
-4. Media Queries for mobile devices.
-5. Keyboard Controls.
+1. ~~CSS Animations~~
+2. ~~Make it really pretty.~~
