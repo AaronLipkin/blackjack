@@ -138,8 +138,6 @@ $(() => {
 		}
 	})
 
-
-
 	const hit = () => {
 		newCard = cards.pop()
 		playerHand.push(newCard)
@@ -302,6 +300,8 @@ $(() => {
 		$('#rules-box').css('display','none')
 	})
 	
+	$('#shutup').prop('volume',0.1);
+
 	$('#vol').on('click',()=> {
 		if ($('#vol').hasClass('playing')) {
 			$('#vol').attr('src','images/mute.png')
